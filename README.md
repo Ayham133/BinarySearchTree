@@ -14,10 +14,7 @@ This repository contains an implementation of a **Binary Search Tree (BST)** in 
 1. [Introduction](#introduction)
 2. [How it Works](#how-it-works)
 3. [Getting Started](#getting-started)
-4. [Usage](#usage)
-5. [Methods](#methods)
-6. [Contributing](#contributing)
-7. [License](#license)
+4. [Methods](#methods)
 
 ## Introduction
 
@@ -45,3 +42,14 @@ To use this Binary Search Tree implementation, you need Java installed on your m
 1. Clone the repository:
    ```bash
    git clone https://github.com/Ayham133/BinarySearchTree.git
+
+### Methods
+
+Here’s a brief overview of the methods implemented in the Binary Search Tree class:
+-**`insert(int value)`**:Adds a value to the tree.
+-**`delet(int target)`**:delte and return the target from this BST.
+-**`serach(int target)`**:Returns true if the target is found in this BST, false otherwise.
+- **`inOrderTraversal(Node node)`**: Performs an in-order traversal and prints the node values in ascending order.
+- **`preOrderTraversal(Node node)`**: Performs a pre-order traversal, visiting the node first, then the left child, and finally the right child.
+- **`postOrderTraversal(Node node)`**: Performs a post-order traversal, visiting the left child first, then the right child, and finally the node itself.
+- **`getRoot()`**: Returns the root node of the tree.
