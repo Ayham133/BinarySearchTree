@@ -47,7 +47,7 @@ To use this Binary Search Tree implementation, you need Java installed on your m
 
 Here’s a brief overview of the methods implemented in the Binary Search Tree class:
 - **`insert(int value)`**:Adds a value to the tree.
-- **`delet(int target)`**:delte and return the target from this BST. **THIS METHOD IS STILL NOT READY**
+- **`delete(int target)`**:delete and return the target from this BST. **THIS METHOD IS STILL NOT READY**
 - **`serach(int target)`**:Returns true if the target is found in this BST, false otherwise.
 - **`inOrderTraversal(Node node)`**: Performs an in-order traversal and prints the node values in ascending order.
 - **`preOrderTraversal(Node node)`**: Performs a pre-order traversal, visiting the node first, then the left child, and finally the right child.
