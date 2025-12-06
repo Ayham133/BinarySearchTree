@@ -7,7 +7,7 @@ import java.util.NoSuchElementException;
  *
  * Author: Ayham Mahmoud Atallah.
  * Date of Strat: wed/December/3/2025.
- * Last Edited on: Friday/December/5/2025.
+ * Last Edited on: Sat/December/6/2025. at 4:14PM UTC+2.
  *
  */
 public class BinarySearchTree {
@@ -431,7 +431,10 @@ public class BinarySearchTree {
     }
 
     /**
-     * dlete method.
+     * Deletse and returns the node with the given target.
+     * 
+     * @param target
+     * @return
      */
     public Node delete(int target) {
         if (isEmpty())
