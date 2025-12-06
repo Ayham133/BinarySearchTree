@@ -499,7 +499,25 @@ public class BinarySearchTree {
         }
 
         // when the targetNode is a parent of two nodes
+        // get the smallest node.
         else if (isParent(targetNode)) {
+
+            Node tempParent = targetNode;
+            Node temp = targetNode.getRight();
+
+            while (temp.getLeft() != null) {
+                tempParent = temp;
+                temp = temp.getLeft();
+            }
+
+            // copy the value from temp to targetNode.
+            targetNode.setData(temp.getData());
+
+            // Delete the temp Node.
+            if (tempParent.getLeft() == temp)
+                tempParent.setLeft(temp.getRight());
+            else
+                tempParent.setRight(temp.getRight());
 
         }
 
