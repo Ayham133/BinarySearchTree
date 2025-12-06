@@ -498,6 +498,11 @@ public class BinarySearchTree {
             }
         }
 
+        // when the targetNode is a parent of two nodes
+        else if (isParent(targetNode)) {
+
+        }
+
         return oldValue;
     }
 
