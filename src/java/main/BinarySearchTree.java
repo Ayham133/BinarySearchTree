@@ -7,7 +7,11 @@ import java.util.NoSuchElementException;
  *
  * Author: Ayham Mahmoud Atallah.
  * Date of Strat: wed/December/3/2025.
+<<<<<<< HEAD
  * Last Edited on: Sat/December/6/2025. at 1:50PM UTC+2
+=======
+ * Last Edited on: Sat/December/6/2025. at 4:14PM UTC+2.
+>>>>>>> dev
  *
  */
 public class BinarySearchTree {
@@ -431,15 +435,17 @@ public class BinarySearchTree {
     }
 
     /**
-     * Todo:
-     * dlete method.
+     * Deletse and returns the node with the given target.
+     * 
+     * @param target
+     * @return
      */
     public Node delete(int target) {
         if (isEmpty())
             throw new NoSuchElementException("Root is null");
 
         // case there is just the root.
-        if (root.getLeft() == null && root.getRight() == null) {
+        if (isLeaf(root)) {
             Node oldValue = root;
             root = null;
             return oldValue;
@@ -448,54 +454,46 @@ public class BinarySearchTree {
         Node oldValue = new Node();
 
         // First Search for the node before the target node.
-        Node nodeBefore = getNodeBeforeThis(root, null, target);
-        Node targetNode = new Node();
+        Node parentNode = null;
+        Node targetNode = root;
 
-        if (nodeBefore.getLeft() != null && nodeBefore.getLeft().getData() == target)
-            targetNode = nodeBefore.getLeft();
-        else if (nodeBefore.getRight() != null && nodeBefore.getRight().getData() == target)
-            targetNode = nodeBefore.getRight();
+        while (targetNode != null && targetNode.getData() != target) {
+            parentNode = targetNode;
+            if (target < targetNode.getData())
+                targetNode = targetNode.getLeft();
+            else
+                targetNode = targetNode.getRight();
+        }
 
-        oldValue = targetNode;
+        // the Binary Search Tree doesn't containe the target.
+        if (targetNode == null)
+            return null;
 
         // Case of a leaf node.
         if (isLeaf(targetNode)) {
 
             // when the laef node is on the left side.
-            if (targetNode == nodeBefore.getLeft())
-                nodeBefore.setLeft(null);
+            if (targetNode == parentNode.getLeft())
+                parentNode.setLeft(null);
 
             // when the leaf node is on the right side.
             // if it was not the left side then it sure to be the right one.
             else
-                nodeBefore.setRight(null);
+                parentNode.setRight(null);
 
         }
-        // when the targetNode is a parent of one node.
-        // conect the nodeBefore to the child.
+        // when the targetNode has one node.
+        // conect the parentNode to the child.
         else if (hasOneChild(targetNode)) {
+            Node childNode = (targetNode.getLeft() != null) ? targetNode.getLeft() : targetNode.getRight();
 
-            // when the child is on the left side.
-            if (targetNode.getLeft() != null) {
+            // define the position of the targetNode node is it in the left part or the
+            // right part.
+            if (targetNode == parentNode.getLeft())
+                parentNode.setLeft(childNode);
+            else
+                parentNode.setRight(childNode);
 
-                // define the position of the targetNode node is it in the left part or the
-                // right part.
-                if (targetNode == nodeBefore.getLeft())
-                    nodeBefore.setLeft(targetNode.getLeft());
-                else
-                    nodeBefore.setRight(targetNode.getLeft());
-
-            }
-            // when the child is on the right.
-            else if (targetNode.getRight() != null) {
-
-                // define the position of the targetNode node is it in the left part or the
-                // right part.
-                if (targetNode == nodeBefore.getLeft())
-                    nodeBefore.setLeft(targetNode.getRight());
-                else
-                    nodeBefore.setRight(targetNode.getRight());
-            }
         }
 
         // when the targetNode is a parent of two nodes
@@ -522,22 +520,6 @@ public class BinarySearchTree {
         }
 
         return oldValue;
-    }
-
-    /**
-     * Returns the Address of the node before the target node.
-     */
-    private Node getNodeBeforeThis(Node root, Node prev, int target) {
-        if (root == null)
-            return root;
-
-        if (root.getData() == target)
-            return prev;
-
-        if (root.getData() > target)
-            return getNodeBeforeThis(root.getLeft(), root, target);
-        else
-            return getNodeBeforeThis(root.getRight(), root, target);
     }
 
     /**
