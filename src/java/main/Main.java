@@ -13,13 +13,13 @@ public class Main {
         bst.insert(6);
         bst.insert(4);
 
-        bst.postOrderPrint();
+        bst.preOrderPrint();
         System.out.println();
 
-        System.out.println(bst.delete(6).getData());
+        bst.delete(5);
 
+        bst.preOrderPrint();
         System.out.println();
-        bst.postOrderPrint();
 
         // bst.printLeftChildOnly();
         //
