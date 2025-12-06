@@ -7,11 +7,7 @@ import java.util.NoSuchElementException;
  *
  * Author: Ayham Mahmoud Atallah.
  * Date of Strat: wed/December/3/2025.
-<<<<<<< HEAD
- * Last Edited on: Sat/December/6/2025. at 1:50PM UTC+2
-=======
  * Last Edited on: Sat/December/6/2025. at 4:14PM UTC+2.
->>>>>>> dev
  *
  */
 public class BinarySearchTree {
