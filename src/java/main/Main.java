@@ -5,22 +5,13 @@ public class Main {
 
     public static void main(String[] args) {
         BinarySearchTree bst = new BinarySearchTree();
+        AVLTree tree = new AVLTree();
 
-        bst.insert(12);
-        bst.insert(15);
-        bst.insert(5);
-        bst.insert(16);
-        bst.insert(6);
-        bst.insert(4);
+        tree.insert(10);
+        tree.insert(20);
+        tree.insert(50);
 
-        bst.preOrderPrint();
-        System.out.println();
-
-        bst.delete(5);
-
-        bst.preOrderPrint();
-        System.out.println();
-
+        System.out.println(tree.isBalanced());
         // bst.printLeftChildOnly();
         //
         // bst.printRightChildOnly();

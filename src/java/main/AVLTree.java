@@ -120,6 +120,32 @@ public class AVLTree {
     }
 
     /**
+     * Returns true if the tree is balanced, false otherwise.
+     *
+     * @throws NoSuchElementException
+     */
+    public boolean isBalanced() {
+        if (isEmpty())
+            throw new NoSuchElementException("Root is NUll");
+
+        return isBalancedHelper(root) <= 1;
+    }
+
+    /**
+     * isBalanced Hleper
+     * 
+     * @param root
+     */
+    private int isBalancedHelper(Node root) {
+        if (root == null)
+            return 0;
+
+        int hightDiff = Math.abs(heightHelper(root.getLeft()) - heightHelper(root.getRight()));
+
+        return hightDiff;
+    }
+
+    /**
      * add value to this Binary Search Tree.
      * Using Recurstion.
      */
