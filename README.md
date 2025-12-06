@@ -5,7 +5,7 @@ This repository contains an implementation of a **Binary Search Tree (BST)** in 
 ## Features
 - Insertion of nodes into the tree
 - Search for a node in the tree
-- Deletion of nodes from the tree **THIS METHOD IS STILL NOT READY**
+- Deletion of nodes from the tree 
 - Traversals: In-order, Pre-order, and Post-order
 - Supports both recursive and iterative methods (if applicable)
 - Handles cases of nodes with zero, one, or two children during deletion
@@ -25,7 +25,7 @@ A Binary Search Tree (BST) is a binary tree in which each node has at most two c
 In this implementation:
 - **Insertion**: Adds a node while maintaining the BST property.
 - **Search**: Finds a node based on its value.
-- **Deletion**: Removes a node, adjusting the tree as needed to maintain the BST property. **THIS METHOD IS STILL NOT READY**
+- **Deletion**: Removes a node, adjusting the tree as needed to maintain the BST property. 
 - **Traversal**: Provides methods for traversing the tree in different orders (in-order, pre-order, post-order).
 
 ## Getting Started
@@ -47,7 +47,7 @@ To use this Binary Search Tree implementation, you need Java installed on your m
 
 Here’s a brief overview of the methods implemented in the Binary Search Tree class:
 - **`insert(int value)`**:Adds a value to the tree.
-- **`delete(int target)`**:delete and return the target from this BST. **THIS METHOD IS STILL NOT READY**
+- **`delete(int target)`**:delete and return the target from this BST. 
 - **`serach(int target)`**:Returns true if the target is found in this BST, false otherwise.
 - **`inOrderTraversal(Node node)`**: Performs an in-order traversal and prints the node values in ascending order.
 - **`preOrderTraversal(Node node)`**: Performs a pre-order traversal, visiting the node first, then the left child, and finally the right child.
