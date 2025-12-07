@@ -19,6 +19,10 @@ public class Node {
         right = null;
     }
 
+    public void setHight(int hight) {
+        this.hight = hight;
+    }
+
     public int getHight() {
         return hight;
     }

@@ -12,6 +12,7 @@ public class Main {
         tree.insert(50);
 
         System.out.println(tree.isBalanced());
+        tree.preOrderPrint();
         // bst.printLeftChildOnly();
         //
         // bst.printRightChildOnly();

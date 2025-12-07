@@ -146,6 +146,58 @@ public class AVLTree {
     }
 
     /**
+     * rotate the node to the right and returns the new root.
+     *
+     * @param root
+     * @return new root
+     */
+    private Node rotateRight(Node root) {
+        Node newRoot = root.getLeft();
+        // to preseve the right subTree.
+        Node temp = newRoot.getRight();
+
+        // update the right subTree of the newRoot to be the root.
+        newRoot.setRight(root);
+        // Reconecte the preseveed subTree in temp to the left subTree of the original
+        // root now is just cild for newRoot.
+        root.setLeft(temp);
+
+        // Now we need to update the height data in each node for future checking for
+        // balancing.
+        root.setHight(Math.max(heightHelper(root.getLeft()), heightHelper(root.getRight())));
+        newRoot.setHight(Math.max(heightHelper(newRoot.getLeft()), heightHelper(newRoot.getRight())));
+
+        // now return the new root.
+        return newRoot;
+    }
+
+    /**
+     * rotate the node to the left and returns the new root.
+     *
+     * @param root
+     * @return new root
+     */
+    private Node rotateLeft(Node root) {
+        Node newRoot = root.getRight();
+        // to preseve the left subTree.
+        Node temp = newRoot.getLeft();
+
+        // update the left subTree of the newRoot to be the root.
+        newRoot.setLeft(root);
+        // Reconecte the preseveed subTree in temp to the right subTree of the original
+        // root now is just child for newRoot.
+        root.setRight(temp);
+
+        // Now we need to update the height data in each node for future checking for
+        // balancing.
+        root.setHight(Math.max(heightHelper(root.getLeft()), heightHelper(root.getRight())));
+        newRoot.setHight(Math.max(heightHelper(newRoot.getLeft()), heightHelper(newRoot.getRight())));
+
+        // now return the new root.
+        return newRoot;
+    }
+
+    /**
      * add value to this Binary Search Tree.
      * Using Recurstion.
      */
@@ -156,34 +208,70 @@ public class AVLTree {
             return;
         }
 
-        Node newNode = new Node(data);
-        Node curr = root;
-        Node parent = null;
-        insertHelper(parent, curr, newNode);
+        root = insertHelper(root, data);
 
     }
 
     /**
      * insertHelper method.
      */
-    private void insertHelper(Node parent, Node curr, Node newNode) {
-        int data = newNode.getData();
+    private Node insertHelper(Node root, int data) {
+        if (root == null)
+            return new Node(data);
 
-        // Base Case.
-        if (curr == null && data > parent.getData()) {
-            parent.setRight(newNode);
-            return;
-        }
-        if (curr == null && data <= parent.getData()) {
-            parent.setLeft(newNode);
-            return;
+        if (root.getData() < data)
+            root.setRight(insertHelper(root.getRight(), data));
+        else if (root.getData() > data)
+            root.setLeft(insertHelper(root.getLeft(), data));
+        else
+            return root;
+
+        // updating the height of the node to check wether the root is balanced or not.
+        root.setHight(1 + Math.max(heightHelper(root.getLeft()), heightHelper(root.getRight())));
+
+        // getting the nodeHeightBalance to check if the node is balanced or what the
+        // type of inbalancing is it.
+        int nodeHeightBalanceValue = nodeHeightBalance(root);
+
+        // RR - L
+        if (nodeHeightBalanceValue < -1 && root.getRight().getData() < data)
+            root = rotateLeft(root);
+
+        // LL -R
+        // when the balance is over one and the node we added is on the left of the left
+        // node of the root
+        if (nodeHeightBalanceValue > 1 && root.getLeft().getData() > data)
+            root = rotateRight(root);
+
+        // LR - LR
+        // when the balance is over one and the node we added is on the right of the
+        // left node of the root
+        // here we do two rotations one to the left for the root.getLeft and
+        // one to the right for the root.
+        if (nodeHeightBalanceValue > 1 && root.getLeft().getData() < data) {
+            root.setLeft(rotateLeft(root.getLeft()));
+            root = rotateRight(root);
         }
 
-        if (data > curr.getData()) {
-            insertHelper(curr, curr.getRight(), newNode);
-        } else {
-            insertHelper(curr, curr.getLeft(), newNode);
+        // RL - RL
+        // when the balance is less than -1 and the node we added is on the left of the
+        // right node of the root
+        // here we do two rotations one to the right for the root.getRight and
+        // one to the left for the root.
+        if (nodeHeightBalanceValue < -1 && root.getRight().getData() > data) {
+            root.setRight(rotateRight(root.getRight()));
+            root = rotateLeft(root);
         }
+        return root;
+    }
+
+    /**
+     * Returns the balance number for checking if the node is balance or not.
+     */
+    private int nodeHeightBalance(Node root) {
+        if (root == null)
+            return 0;
+        return heightHelper(root.getLeft()) - heightHelper(root.getRight());
     }
 
     /**
