@@ -643,12 +643,18 @@ public class AVLTree {
         int nodeHeightBalanceValue = nodeHeightBalance(parentNode);
 
         // RR - L
-        if (nodeHeightBalanceValue < 0 && heightHelper(parentNode.getRight()) > heightHelper(parentNode.getLeft()))
+        if (nodeHeightBalanceValue < -1 && nodeHeightBalance(parentNode.getRight()) <= 0)
             root = rotateLeft(parentNode);
 
         // LL - R
-        if (nodeHeightBalanceValue > 1 && heightHelper(parentNode.getLeft()) > heightHelper(parentNode.getRight()))
+        if (nodeHeightBalanceValue > 1 && nodeHeightBalance(parentNode.getLeft()) >= 0)
             root = rotateRight(parentNode);
+
+        // LR - LR
+        if (nodeHeightBalanceValue > 1 && nodeHeightBalance(parentNode.getLeft()) < 0) {
+            root = rotateLeft(parentNode);
+            root = rotateRight(root);
+        }
 
         System.out.print("After balancing: ");
         preOrderPrint();
