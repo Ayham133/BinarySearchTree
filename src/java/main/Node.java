@@ -6,6 +6,7 @@ public class Node {
     int data;
     Node left;
     Node right;
+    int hight;
 
     public Node(int data) {
         this.data = data;
@@ -16,6 +17,10 @@ public class Node {
     public Node() {
         left = null;
         right = null;
+    }
+
+    public int getHight() {
+        return hight;
     }
 
     public int getData() {
