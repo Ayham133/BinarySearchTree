@@ -17,22 +17,22 @@ public class AVLTree {
         root = null;
     }
 
-    public Node getRoot() {
+    public Node getRoot() { // O(1)
         return root;
     }
 
-    public void setRoot(Node root) {
+    public void setRoot(Node root) {// O(1)
         this.root = root;
     }
 
-    private boolean isEmpty() {
+    private boolean isEmpty() {// O(1)
         return root == null;
     }
 
     /**
      * Prints All the nodes in this Binary Search Tree.
      */
-    public void preOrderPrint() {
+    public void preOrderPrint() {// O(n)
         preOrderPrint(root);
         System.out.println();
     }
@@ -40,7 +40,7 @@ public class AVLTree {
     /**
      * preOrderPrint Helper.
      */
-    private void preOrderPrint(Node node) {
+    private void preOrderPrint(Node node) {// O(n)
         // Base Case.
         if (node == null)
             return;
@@ -54,11 +54,11 @@ public class AVLTree {
     /**
      * PostOrder.
      */
-    public void postOrderPrint() {
+    public void postOrderPrint() {// O(n)
         postOrderPrint(root);
     }
 
-    private void postOrderPrint(Node node) {
+    private void postOrderPrint(Node node) {// O(n)
         // Base Case.
         if (node == null)
             return;
@@ -71,11 +71,11 @@ public class AVLTree {
     /**
      * inOrder.
      */
-    public void inOrderPrint() {
+    public void inOrderPrint() {// O(n)
         inOrderPrint(root);
     }
 
-    private void inOrderPrint(Node node) {
+    private void inOrderPrint(Node node) {// O(n)
         // Base Case.
         if (node == null)
             return;
@@ -90,7 +90,7 @@ public class AVLTree {
      * 
      * @param data
      */
-    public void add(int data) {
+    public void add(int data) { // O(logn)
         if (isEmpty()) {
             root.setData(data);
             return;
@@ -126,7 +126,7 @@ public class AVLTree {
      *
      * @throws NoSuchElementException
      */
-    public boolean isBalanced() {
+    public boolean isBalanced() {// O(n)
         if (isEmpty())
             throw new NoSuchElementException("Root is NUll");
 
@@ -138,7 +138,7 @@ public class AVLTree {
      * 
      * @param root
      */
-    private int isBalancedHelper(Node root) {
+    private int isBalancedHelper(Node root) {// O(n)
         if (root == null)
             return 0;
 
@@ -153,7 +153,7 @@ public class AVLTree {
      * @param root
      * @return new root
      */
-    private Node rotateRight(Node root) {
+    private Node rotateRight(Node root) {// O(n)
         Node newRoot = root.getLeft();
         // to preseve the right subTree.
         Node temp = newRoot.getRight();
@@ -179,7 +179,7 @@ public class AVLTree {
      * @param root
      * @return new root
      */
-    private Node rotateLeft(Node root) {
+    private Node rotateLeft(Node root) {// O(n)
         Node newRoot = root.getRight();
         // to preseve the left subTree.
         Node temp = newRoot.getLeft();
@@ -203,7 +203,7 @@ public class AVLTree {
      * add value to this Binary Search Tree.
      * Using Recurstion.
      */
-    public void insert(int data) {
+    public void insert(int data) {// O(nlogn)
 
         if (isEmpty()) {
             root = new Node(data);
@@ -217,7 +217,7 @@ public class AVLTree {
     /**
      * insertHelper method.
      */
-    private Node insertHelper(Node root, int data) {
+    private Node insertHelper(Node root, int data) {// O(nlogn)
         if (root == null)
             return new Node(data);
 
@@ -270,7 +270,7 @@ public class AVLTree {
     /**
      * Returns the balance number for checking if the node is balance or not.
      */
-    private int nodeHeightBalance(Node root) {
+    private int nodeHeightBalance(Node root) {// O(n)
         if (root == null)
             return 0;
         return heightHelper(root.getLeft()) - heightHelper(root.getRight());
@@ -279,14 +279,14 @@ public class AVLTree {
     /**
      * Returns the number of leves in this Binary Search Tree.
      */
-    public int height() {
+    public int height() {// O(n)
         return heightHelper(root);
     }
 
     /**
      * hight Helper method
      */
-    private int heightHelper(Node root) {
+    private int heightHelper(Node root) {// O(n)
         if (root == null)
             return 0;
 
@@ -297,21 +297,21 @@ public class AVLTree {
      * Returns true if the this node has at least one child, fasle if it doesn't
      * have any child.
      */
-    private boolean isParent(Node node) {
+    private boolean isParent(Node node) {// O(1)
         return node.getLeft() != null || node.getRight() != null;
     }
 
     /**
      * Retuns true if the given node is leaf (doesn't have childs), false otherwise.
      */
-    private boolean isLeaf(Node node) {
+    private boolean isLeaf(Node node) {// O(1)
         return node.getLeft() == null && node.getRight() == null;
     }
 
     /**
      * printLeaf
      */
-    public void printLeaf() {
+    public void printLeaf() {// O(n)
         if (root == null)
             return;
 
@@ -324,7 +324,7 @@ public class AVLTree {
      *
      * Traverse through the tree and if the current node is leaf then print it.
      */
-    private void printLeafHelper(Node root) {
+    private void printLeafHelper(Node root) {// O(n)
         if (root == null)
             return;
 
@@ -340,7 +340,7 @@ public class AVLTree {
     /**
      * printParent
      */
-    public void printParent() {
+    public void printParent() {// O(n)
         if (isEmpty())
             throw new NoSuchElementException("Root is Null");
         printParentHelper(root);
@@ -352,7 +352,7 @@ public class AVLTree {
      *
      * Traverse through the tree and if the current node is parent then print it.
      */
-    private void printParentHelper(Node root) {
+    private void printParentHelper(Node root) {// O(n)
         // Base Case.
         if (root == null)
             return;
@@ -381,7 +381,7 @@ public class AVLTree {
      * 
      * @param root
      */
-    private int countLeafHelper(Node root) {
+    private int countLeafHelper(Node root) {// O(n)
         if (root == null)
             return 0;
 
@@ -398,7 +398,7 @@ public class AVLTree {
      * 
      * @throws NoSuchElementException
      */
-    public int countParent() {
+    public int countParent() {// O(n)
         if (isEmpty())
             throw new NoSuchElementException("Root is Null");
         return countParentHelper(root);
@@ -407,7 +407,7 @@ public class AVLTree {
     /**
      * countParentHelper method.
      */
-    private int countParentHelper(Node root) {
+    private int countParentHelper(Node root) {// O(n)
         if (root == null)
             return 0;
 
@@ -422,7 +422,7 @@ public class AVLTree {
      * 
      * @throws NoSuchElementException
      */
-    public void printLeftChildOnly() {
+    public void printLeftChildOnly() {// O(n)
         if (isEmpty())
             throw new NoSuchElementException("Root is Null");
         printLeftChildOnlyHelper(root);
@@ -432,7 +432,7 @@ public class AVLTree {
     /**
      * printLeftChildOnly Helper Method.
      */
-    private void printLeftChildOnlyHelper(Node root) {
+    private void printLeftChildOnlyHelper(Node root) {// O(n)
         // Base Case.
         if (root == null || isLeaf(root))
             return;
@@ -447,7 +447,7 @@ public class AVLTree {
     /**
      * print only the right children in this BST.
      */
-    public void printRightChildOnly() {
+    public void printRightChildOnly() {// O(n)
         if (isEmpty())
             throw new NoSuchElementException("Root is Null");
         printRightChildOnlyHelper(root);
@@ -457,7 +457,7 @@ public class AVLTree {
     /**
      * printRightChildOnly Helper Method.
      */
-    private void printRightChildOnlyHelper(Node root) {
+    private void printRightChildOnlyHelper(Node root) {// O(n)
         if (root == null || isLeaf(root))
             return;
 
@@ -473,7 +473,7 @@ public class AVLTree {
      *
      * By Traversle to the far left child we find the minimum value in this BST.
      */
-    public int minimumElement() {
+    public int minimumElement() {// O(logn)
         if (isEmpty())
             throw new NoSuchElementException("Root is Null");
         return minimumElementHelper(root);
@@ -482,7 +482,7 @@ public class AVLTree {
     /**
      * minimumElement Helper Method.
      */
-    private int minimumElementHelper(Node root) {
+    private int minimumElementHelper(Node root) {// O(logn)
         if (root.getLeft() == null)
             return root.getData();
 
@@ -492,7 +492,7 @@ public class AVLTree {
     /**
      * Returns the maximum value in this BST.
      */
-    public int maximumElement() {
+    public int maximumElement() {// O(logn)
         if (isEmpty())
             throw new NoSuchElementException("Root is Null");
         return maximumElementHelper(root);
@@ -501,7 +501,7 @@ public class AVLTree {
     /**
      * maximumElement Helper Method.
      */
-    private int maximumElementHelper(Node root) {
+    private int maximumElementHelper(Node root) {// O(logn)
         if (root.getRight() == null)
             return root.getData();
 
@@ -518,7 +518,7 @@ public class AVLTree {
      * @param target
      * @throws NoSuchElementException
      */
-    public boolean search(int target) {
+    public boolean search(int target) {// O(logn)
         if (isEmpty())
             throw new NoSuchElementException("Root is Null");
 
@@ -533,7 +533,7 @@ public class AVLTree {
      * @param root
      * @param target
      */
-    private Node searchElement(Node root, int target) {
+    private Node searchElement(Node root, int target) {// O(logn)
         if (root == null)
             return null;
 
@@ -552,7 +552,7 @@ public class AVLTree {
      * @param target
      * @return
      */
-    public Node delete(int target) {
+    public Node delete(int target) {// O(nlogn)
         if (isEmpty())
             throw new NoSuchElementException("Root is null");
 
@@ -668,7 +668,7 @@ public class AVLTree {
      * 
      * @param node
      */
-    private boolean hasOneChild(Node node) {
+    private boolean hasOneChild(Node node) {// O(n)
         if (node.getLeft() != null && node.getRight() == null)
             return true;
         else if (node.getLeft() == null && node.getRight() != null)

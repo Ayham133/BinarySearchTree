@@ -14,5 +14,6 @@ public class Main {
         tree.preOrderPrint();
 
         tree.delete(20);
+        tree.preOrderPrint();
     }
 }
