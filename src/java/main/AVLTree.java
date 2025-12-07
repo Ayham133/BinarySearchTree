@@ -34,6 +34,7 @@ public class AVLTree {
      */
     public void preOrderPrint() {
         preOrderPrint(root);
+        System.out.println();
     }
 
     /**
@@ -47,6 +48,7 @@ public class AVLTree {
         System.out.print(" " + node.getData());
         preOrderPrint(node.getLeft());
         preOrderPrint(node.getRight());
+
     }
 
     /**
@@ -561,7 +563,7 @@ public class AVLTree {
             return oldValue;
         }
 
-        Node oldValue = new Node();
+        Node oldValue = null;
 
         // First Search for the node before the target node.
         Node parentNode = null;
@@ -578,6 +580,8 @@ public class AVLTree {
         // the Binary Search Tree doesn't containe the target.
         if (targetNode == null)
             return null;
+
+        oldValue = new Node(targetNode.getData());
 
         // Case of a leaf node.
         if (isLeaf(targetNode)) {
@@ -597,6 +601,10 @@ public class AVLTree {
         else if (hasOneChild(targetNode)) {
             Node childNode = (targetNode.getLeft() != null) ? targetNode.getLeft() : targetNode.getRight();
 
+            if (parentNode == null) {
+                root = childNode;
+                return oldValue;
+            }
             // define the position of the targetNode node is it in the left part or the
             // right part.
             if (targetNode == parentNode.getLeft())
@@ -628,6 +636,22 @@ public class AVLTree {
                 tempParent.setRight(temp.getRight());
 
         }
+
+        System.out.print("After deleting: ");
+        preOrderPrint();
+
+        int nodeHeightBalanceValue = nodeHeightBalance(parentNode);
+
+        // RR - L
+        if (nodeHeightBalanceValue < 0 && heightHelper(parentNode.getRight()) > heightHelper(parentNode.getLeft()))
+            root = rotateLeft(parentNode);
+
+        // LL - R
+        if (nodeHeightBalanceValue > 1 && heightHelper(parentNode.getLeft()) > heightHelper(parentNode.getRight()))
+            root = rotateRight(parentNode);
+
+        System.out.print("After balancing: ");
+        preOrderPrint();
 
         return oldValue;
     }

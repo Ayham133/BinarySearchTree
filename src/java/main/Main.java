@@ -4,15 +4,18 @@
 public class Main {
 
     public static void main(String[] args) {
-        BinarySearchTree bst = new BinarySearchTree();
         AVLTree tree = new AVLTree();
 
         tree.insert(10);
         tree.insert(20);
         tree.insert(50);
+        tree.insert(60);
 
-        System.out.println(tree.isBalanced());
         tree.preOrderPrint();
+        System.out.println();
+
+        tree.delete(10);
+
         // bst.printLeftChildOnly();
         //
         // bst.printRightChildOnly();
