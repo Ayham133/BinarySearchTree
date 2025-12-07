@@ -7,7 +7,7 @@ import java.util.NoSuchElementException;
  *
  * Author: Ayham Mahmoud Atallah.
  * Date of Creat: Sat/Dec/6/2025. at 4:43PM UTC+2.
- * Last edited at:
+ * Last edited at: Mon/Dec/8/2025. at 1:11AM UTC+2.
  *
  */
 public class AVLTree {
@@ -637,9 +637,7 @@ public class AVLTree {
 
         }
 
-        System.out.print("After deleting: ");
-        preOrderPrint();
-
+        // Now for Balancing.
         int nodeHeightBalanceValue = nodeHeightBalance(parentNode);
 
         // RR - L
@@ -652,12 +650,15 @@ public class AVLTree {
 
         // LR - LR
         if (nodeHeightBalanceValue > 1 && nodeHeightBalance(parentNode.getLeft()) < 0) {
-            root = rotateLeft(parentNode);
+            root.setLeft(rotateLeft(parentNode.getLeft()));
             root = rotateRight(root);
         }
 
-        System.out.print("After balancing: ");
-        preOrderPrint();
+        // RL -RL
+        if (nodeHeightBalanceValue < -1 && nodeHeightBalance(parentNode.getRight()) > 0) {
+            root.setRight(rotateRight(parentNode.getRight()));
+            root = rotateLeft(root);
+        }
 
         return oldValue;
     }
