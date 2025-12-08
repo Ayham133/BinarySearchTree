@@ -7,7 +7,7 @@ import java.util.NoSuchElementException;
  *
  * Author: Ayham Mahmoud Atallah.
  * Date of Strat: wed/December/3/2025.
- * Last Edited on: Sun/December/7/2025. at 7:33PM UTC+2.
+ * Last Edited on: Mon/December/8/2025. at 8:45PM UTC+2.
  *
  */
 public class BinarySearchTree {
@@ -34,6 +34,7 @@ public class BinarySearchTree {
      */
     public void preOrderPrint() {
         preOrderPrint(root);
+        System.out.println();
     }
 
     /**
@@ -536,6 +537,29 @@ public class BinarySearchTree {
      * Returns arraylist that has the longest ptha in this BST.
      */
     public void printLongestPath() {
+        if (isEmpty()) {
+            System.out.println("tree is Empty");
+            return;
+        }
+
+        printLongestPathHelper(root);
+        System.out.println();
+    }
+
+    /**
+     * printLongestPath Helper
+     */
+    private void printLongestPathHelper(Node root) {
+        // Base Case.
+        if (root == null)
+            return;
+
+        System.out.print(root.getData() + " ");
+
+        if (heightHelper(root.getLeft()) <= heightHelper(root.getRight())) {
+            printLongestPathHelper(root.getRight());
+        } else
+            printLongestPathHelper(root.getLeft());
 
     }
 

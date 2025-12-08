@@ -7,7 +7,7 @@ import java.util.NoSuchElementException;
  *
  * Author: Ayham Mahmoud Atallah.
  * Date of Creat: Sat/Dec/6/2025. at 4:43PM UTC+2.
- * Last edited at: Mon/Dec/8/2025. at 1:11AM UTC+2.
+ * Last edited at: Mon/Dec/8/2025. at 8:45PM UTC+2.
  *
  */
 public class AVLTree {
@@ -675,6 +675,90 @@ public class AVLTree {
             return true;
         else
             return false;
+    }
+
+    /**
+     * Returns arraylist that has the longest ptha in this BST.
+     */
+    public void printLongestPath() {
+        if (isEmpty()) {
+            System.out.println("tree is Empty");
+            return;
+        }
+
+        printLongestPathHelper(root);
+        System.out.println();
+    }
+
+    /**
+     * printLongestPath Helper
+     */
+    private void printLongestPathHelper(Node root) {
+        // Base Case.
+        if (root == null)
+            return;
+
+        System.out.print(root.getData() + " ");
+
+        if (heightHelper(root.getLeft()) <= heightHelper(root.getRight())) {
+            printLongestPathHelper(root.getRight());
+        } else
+            printLongestPathHelper(root.getLeft());
+
+    }
+
+    /**
+     * Returns the sum of the longest path.
+     */
+    public int sumOfLongestPath() {
+        if (isEmpty()) {
+            System.out.println("Tree isEmpty");
+            return 0;
+        }
+
+        return sumOfLongestPathHelper(root);
+    }
+
+    /**
+     * sumOfLongestPath Helper
+     */
+    private int sumOfLongestPathHelper(Node root) {
+        if (root == null)
+            return 0;
+
+        if (heightHelper(root.getLeft()) <= heightHelper(root.getRight())) {
+            return root.getData() + sumOfLongestPathHelper(root.getRight());
+        } else
+            return root.getData() + sumOfLongestPathHelper(root.getLeft());
+
+    }
+
+    /**
+     * invert's the Tree
+     */
+    public void invertTree() {
+        if (isEmpty()) {
+            System.out.println("tree isEmpty");
+            return;
+        }
+
+        invertTreeHelper(root);
+    }
+
+    /**
+     * invertTreeHelper method.
+     */
+    private void invertTreeHelper(Node root) {
+        // Base Case
+        if (root == null || isLeaf(root))
+            return;
+
+        Node temp = root.getRight();
+        root.setRight(root.getLeft());
+        root.setLeft(temp);
+
+        invertTreeHelper(root.getRight());
+        invertTreeHelper(root.getLeft());
     }
 
 }
