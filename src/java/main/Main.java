@@ -1,4 +1,3 @@
-import java.util.NoSuchElementException;
 
 /**
  * Main
@@ -7,15 +6,15 @@ public class Main {
 
     public static void main(String[] args) {
         BinarySearchTree tree = new BinarySearchTree();
-        tree.insert(3);
+        tree.insert(0);
+        tree.insert(-3);
+        tree.insert(-10);
         tree.insert(2);
         tree.insert(1);
-        tree.insert(5);
-        tree.insert(6);
-        tree.insert(4);
 
         tree.preOrderPrint();
-        System.out.println("is BST: " + isValidBinarySearchTree(tree.getRoot()));
+        LCA(tree.getRoot(), -3, 2);
+        System.out.println();
 
     }
 
@@ -51,20 +50,60 @@ public class Main {
      * Returns true if this tree is a binary serach tree, fasle otherwise.
      */
     static boolean isValidBinarySearchTree(Node root) {
-        if (root == null)
-            throw new NoSuchElementException();
-
-        return validateTree(root, root.getLeft().getData(), root.getRight().getData());
+        return validateTree(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
     }
 
     private static boolean validateTree(Node root, int left, int right) {
         if (root == null)
             return true;
 
-        if (!(root.getData() > left && root.getData() < right))
+        if (root.getData() <= left || root.getData() >= right)
             return false;
 
         return (validateTree(root.getLeft(), left, root.getData())
                 && validateTree(root.getRight(), root.getData(), right));
     }
+
+    static Node sortedArrayToBST(int array[]) {
+        if (array.length == 0 || array == null)
+            return null;
+
+        return sortedArrayToBSTHelper(array, 0, array.length - 1);
+    }
+
+    private static Node sortedArrayToBSTHelper(int[] array, int left, int right) {
+        if (left > right)
+            return null;
+
+        int midPoint = (left + right) / 2;
+        int midValue = array[midPoint];
+
+        Node root = new Node(midValue);
+
+        root.setLeft(sortedArrayToBSTHelper(array, left, midPoint - 1));
+        root.setRight(sortedArrayToBSTHelper(array, midPoint + 1, right));
+
+        return root;
+    }
+
+    static Node LCA(Node root, Node p, Node q) {
+        if (root == null)
+            return null;
+
+        else if (root == p || root == q)
+            return root;
+
+        else if (root.getLeft() == p && root.getRight() == q) {
+            return root;
+        }
+
+        else if (root.getData() > p.getData() && root.getData() > q.getData()) {
+            return LCA(root.getLeft(), p, q);
+        } else if (root.getData() < p.getData() && root.getData() < q.getData()) {
+            return LCA(root.getRight(), p, q);
+        } else {
+            return root;
+        }
+    }
+
 }

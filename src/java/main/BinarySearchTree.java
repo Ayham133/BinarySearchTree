@@ -55,6 +55,7 @@ public class BinarySearchTree {
      */
     public void postOrderPrint() {
         postOrderPrint(root);
+        System.out.println();
     }
 
     private void postOrderPrint(Node node) {
@@ -72,6 +73,7 @@ public class BinarySearchTree {
      */
     public void inOrderPrint() {
         inOrderPrint(root);
+        System.out.println();
     }
 
     private void inOrderPrint(Node node) {
@@ -586,6 +588,38 @@ public class BinarySearchTree {
             return countGoodNodesHelper(root.getLeft(), maxValue) + countGoodNodesHelper(root.getRight(), maxValue);
         }
 
+    }
+
+    /**
+     * Returns the kth smallest element in this BST.
+     */
+    public int kthSmallestElement(int k) {
+        if (isEmpty())
+            throw new NoSuchElementException();
+
+        return kthSmallestElementHelper(root, k);
+    }
+
+    private int kthSmallestElementHelper(Node root, int k) {
+        // Base Case.
+        if (root.getLeft() == null || k > 0)
+            return root.getData();
+
+        System.out.println(leftHeight(root));
+        k = Math.abs(k - leftHeight(root));
+        return kthSmallestElementHelper(root.getLeft(), k - 1);
+
+    }
+
+    private int leftHeight(Node node) {
+        int height = 0;
+
+        while (node != null) {
+            node = node.getLeft();
+            height++;
+        }
+
+        return height;
     }
 
 }
