@@ -563,4 +563,24 @@ public class BinarySearchTree {
 
     }
 
+    public int countGoodNodes() {
+        if (isEmpty())
+            throw new NoSuchElementException();
+
+        return countGoodNodesHelper(root, Integer.MIN_VALUE);
+    }
+
+    private int countGoodNodesHelper(Node root, int maxValue) {
+        if (root == null)
+            return 0;
+
+        if (root.getData() >= maxValue) {
+            maxValue = root.getData();
+            return 1 + countGoodNodesHelper(root.getLeft(), maxValue) + countGoodNodesHelper(root.getRight(), maxValue);
+        } else {
+            return countGoodNodesHelper(root.getLeft(), maxValue) + countGoodNodesHelper(root.getRight(), maxValue);
+        }
+
+    }
+
 }
