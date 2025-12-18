@@ -563,6 +563,11 @@ public class BinarySearchTree {
 
     }
 
+    /**
+     * Returns the number of good nodes in this BinarySearchTree.
+     * a good node is a node were the data of it is the max from the root to this
+     * node.
+     */
     public int countGoodNodes() {
         if (isEmpty())
             throw new NoSuchElementException();

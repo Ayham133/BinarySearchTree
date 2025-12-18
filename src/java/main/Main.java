@@ -1,3 +1,5 @@
+import java.util.NoSuchElementException;
+
 /**
  * Main
  */
@@ -13,7 +15,7 @@ public class Main {
         tree.insert(4);
 
         tree.preOrderPrint();
-        System.out.println("good Node: " + tree.countGoodNodes());
+        System.out.println("is BST: " + isValidBinarySearchTree(tree.getRoot()));
 
     }
 
@@ -43,5 +45,26 @@ public class Main {
 
     private static int getDataFromNode(Node node) {
         return (node != null) ? node.getData() : 0;
+    }
+
+    /**
+     * Returns true if this tree is a binary serach tree, fasle otherwise.
+     */
+    static boolean isValidBinarySearchTree(Node root) {
+        if (root == null)
+            throw new NoSuchElementException();
+
+        return validateTree(root, root.getLeft().getData(), root.getRight().getData());
+    }
+
+    private static boolean validateTree(Node root, int left, int right) {
+        if (root == null)
+            return true;
+
+        if (!(root.getData() > left && root.getData() < right))
+            return false;
+
+        return (validateTree(root.getLeft(), left, root.getData())
+                && validateTree(root.getRight(), root.getData(), right));
     }
 }
