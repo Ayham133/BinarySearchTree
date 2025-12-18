@@ -4,18 +4,17 @@
 public class Main {
 
     public static void main(String[] args) {
-        AVLTree tree = new AVLTree();
-
-        tree.insert(50);
-        tree.insert(60);
-        tree.insert(20);
-        tree.insert(55);
-
-        tree.preOrderPrint();
-
-        tree.invertTree();
+        BinarySearchTree tree = new BinarySearchTree();
+        tree.insert(3);
+        tree.insert(2);
+        tree.insert(1);
+        tree.insert(5);
+        tree.insert(6);
+        tree.insert(4);
 
         tree.preOrderPrint();
+        System.out.println("good Node: " + tree.countGoodNodes());
+
     }
 
     static Node mergeTwoBinaryTrees(Node root1, Node root2) {
