@@ -6,6 +6,7 @@ import java.util.Stack;
 public class Main {
 
     public static void main(String[] args) {
+        System.out.println((int) Math.log10(5247));
         BinarySearchTree tree = new BinarySearchTree();
         tree.insert(10);
         tree.insert(5);

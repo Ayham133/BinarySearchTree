@@ -88,7 +88,7 @@ public class BinarySearchTree {
         if (node == null)
             return;
 
-        preOrderPrint(node.getLeft());
+        inOrderPrint(node.getLeft());
         System.out.print(" " + node.getData());
         preOrderPrint(node.getRight());
     }
@@ -158,10 +158,12 @@ public class BinarySearchTree {
             parent.setRight(newNode);
             return;
         }
-        if (curr == null && data <= parent.getData()) {
+        if (curr == null && data < parent.getData()) {
             parent.setLeft(newNode);
             return;
         }
+        if (curr == null && data == parent.getData())
+            return;
 
         if (data > curr.getData()) {
             insertHelper(curr, curr.getRight(), newNode);
@@ -450,13 +452,6 @@ public class BinarySearchTree {
         if (isEmpty())
             throw new NoSuchElementException("Root is null");
 
-        // case there is just the root.
-        if (isLeaf(root)) {
-            Node oldValue = root;
-            root = null;
-            return oldValue;
-        }
-
         Node oldValue = new Node();
 
         // First Search for the node before the target node.
@@ -475,11 +470,16 @@ public class BinarySearchTree {
         if (targetNode == null)
             return null;
 
+        oldValue = targetNode;
+
         // Case of a leaf node.
         if (isLeaf(targetNode)) {
-
+            // when the targetNode is the root.
+            if (targetNode == root) {
+                root = null;
+            }
             // when the laef node is on the left side.
-            if (targetNode == parentNode.getLeft())
+            else if (targetNode == parentNode.getLeft())
                 parentNode.setLeft(null);
 
             // when the leaf node is on the right side.
@@ -504,7 +504,7 @@ public class BinarySearchTree {
 
         // when the targetNode is a parent of two nodes
         // get the smallest node.
-        else if (isParent(targetNode)) {
+        else {
 
             Node tempParent = targetNode;
             Node temp = targetNode.getRight();
