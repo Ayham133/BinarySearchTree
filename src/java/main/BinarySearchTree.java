@@ -1,4 +1,4 @@
-import java.util.NoSuchElementException;
+import java.util.*;
 
 /**
  * BinaryTree
@@ -31,6 +31,8 @@ public class BinarySearchTree {
 
     /**
      * Prints All the nodes in this Binary Search Tree.
+     *
+     * Root Left Right
      */
     public void preOrderPrint() {
         preOrderPrint(root);
@@ -39,6 +41,7 @@ public class BinarySearchTree {
 
     /**
      * preOrderPrint Helper.
+     *
      */
     private void preOrderPrint(Node node) {
         // Base Case.
@@ -52,6 +55,8 @@ public class BinarySearchTree {
 
     /**
      * PostOrder.
+     *
+     * Left Right Root
      */
     public void postOrderPrint() {
         postOrderPrint(root);
@@ -70,6 +75,8 @@ public class BinarySearchTree {
 
     /**
      * inOrder.
+     *
+     * Left Root Right
      */
     public void inOrderPrint() {
         inOrderPrint(root);
@@ -594,32 +601,139 @@ public class BinarySearchTree {
      * Returns the kth smallest element in this BST.
      */
     public int kthSmallestElement(int k) {
-        if (isEmpty())
+        if (isEmpty() || k < 0)
             throw new NoSuchElementException();
+
+        if (k == 0)
+            return getRoot().getData();
 
         return kthSmallestElementHelper(root, k);
     }
 
     private int kthSmallestElementHelper(Node root, int k) {
-        // Base Case.
-        if (root.getLeft() == null || k > 0)
-            return root.getData();
+        Stack<Integer> smallestElements = new Stack<>();
+        Node current = root;
 
-        System.out.println(leftHeight(root));
-        k = Math.abs(k - leftHeight(root));
-        return kthSmallestElementHelper(root.getLeft(), k - 1);
-
-    }
-
-    private int leftHeight(Node node) {
-        int height = 0;
-
-        while (node != null) {
-            node = node.getLeft();
-            height++;
+        while (current != null) {
+            smallestElements.push(current.getData());
+            current = current.getLeft();
         }
 
-        return height;
+        if (k > smallestElements.size())
+            return root.getData();
+
+        int kthSmallestElement = smallestElements.peek();
+        while (k != 0) {
+            kthSmallestElement = smallestElements.pop();
+            k--;
+        }
+        return kthSmallestElement;
     }
 
+    /**
+     * Returns sum of the k smallest element in this BST.
+     */
+    public int sumOfKthSmallestElement(int k) {
+        if (isEmpty() || k < 0)
+            throw new NoSuchElementException();
+
+        if (k == 0)
+            return getRoot().getData();
+
+        return sumOfKthSmallestElementHelper(root, k);
+    }
+
+    private int sumOfKthSmallestElementHelper(Node root, int k) {
+        Stack<Integer> smallestElements = new Stack<>();
+        Node current = root;
+
+        while (current != null) {
+            smallestElements.push(current.getData());
+            current = current.getLeft();
+        }
+
+        if (k > smallestElements.size())
+            k = smallestElements.size();
+
+        int sum = smallestElements.pop();
+        k--;
+        while (k != 0) {
+            sum += smallestElements.pop();
+            k--;
+        }
+
+        return sum;
+    }
+
+    /**
+     * Returns the number of the non leaf nodes in this BST.
+     */
+    public int countNonLeafNodes() {
+        if (isEmpty())
+            return 0;
+
+        return countNonLeafNodesHelper(root);
+    }
+
+    private int countNonLeafNodesHelper(Node root) {
+        if (root == null || (root.getLeft() == null && root.getRight() == null))
+            return 0;
+        return 1 + countNonLeafNodesHelper(root.getLeft()) + countNonLeafNodesHelper(root.getRight());
+    }
+
+    /**
+     * Returns the first leaf node.
+     */
+    public Node FirstParentDontHaveAChild() {
+        if (isEmpty())
+            throw new NoSuchElementException();
+
+        return FirstParentDontHaveAChildHelper(getRoot());
+
+    }
+
+    private Node FirstParentDontHaveAChildHelper(Node root) {
+        if (root == null || isLeaf(root))
+            return root;
+
+        int leftHeight = heightHelper(root.getLeft());
+        int rightHeight = heightHelper(root.getRight());
+
+        return (leftHeight < rightHeight) ? FirstParentDontHaveAChildHelper(root.getLeft())
+                : FirstParentDontHaveAChildHelper(root.getRight());
+    }
+
+    /**
+     * Prints all paths and the sum of the path.
+     */
+    public void printAllPathsAndSum() {
+        if (isEmpty())
+            throw new NoSuchElementException();
+
+        List<Integer> currentPath = new ArrayList<>();
+        printAllPathsAndSumHelper(getRoot(), currentPath);
+    }
+
+    private void printAllPathsAndSumHelper(Node root, List<Integer> currentPath) {
+        if (root == null)
+            return;
+
+        currentPath.add(root.getData());
+
+        if (isLeaf(root)) {
+            System.out.println(currentPath + ": " + sumPath(currentPath, 0));
+        } else {
+            printAllPathsAndSumHelper(root.getLeft(), currentPath);
+            printAllPathsAndSumHelper(root.getRight(), currentPath);
+        }
+
+        currentPath.remove(currentPath.size() - 1);
+    }
+
+    private int sumPath(List<Integer> path, int i) {
+        if (i > path.size() - 1)
+            return 0;
+
+        return path.get(i) + sumPath(path, i + 1);
+    }
 }

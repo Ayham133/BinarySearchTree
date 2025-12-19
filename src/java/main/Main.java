@@ -1,3 +1,4 @@
+import java.util.Stack;
 
 /**
  * Main
@@ -6,15 +7,16 @@ public class Main {
 
     public static void main(String[] args) {
         BinarySearchTree tree = new BinarySearchTree();
-        tree.insert(0);
-        tree.insert(-3);
-        tree.insert(-10);
+        tree.insert(10);
+        tree.insert(5);
         tree.insert(2);
-        tree.insert(1);
+        tree.insert(13);
+        tree.insert(11);
 
         tree.preOrderPrint();
-        LCA(tree.getRoot(), -3, 2);
         System.out.println();
+
+        tree.printAllPathsAndSum();
 
     }
 
@@ -104,6 +106,34 @@ public class Main {
         } else {
             return root;
         }
+    }
+
+    /**
+     * Returns true if the sequance is a preOrder BST, false otherwise
+     *
+     * @param array
+     */
+    static boolean IsPreOrderBST(int[] array) {
+        if (array == null || array.length == 0)
+            return true;
+
+        Stack<Integer> stack = new Stack<>();
+        int lowerBound = Integer.MIN_VALUE;
+
+        for (Integer element : array) {
+
+            // if the element is Smaller than the lowerBound then we found a smaller than
+            // root in the right side of the tree wich is not a BST propertie.
+            if (element < lowerBound)
+                return false;
+
+            // finding the lowerBound.
+            while (!stack.isEmpty() && element > stack.peek())
+                lowerBound = stack.pop();
+
+            stack.push(element);
+        }
+        return true;
     }
 
 }
