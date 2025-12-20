@@ -1,5 +1,7 @@
 import java.util.*;
 
+import com.sun.org.apache.xerces.internal.impl.xpath.regex.REUtil;
+
 /**
  * BinaryTree
  *
@@ -7,7 +9,7 @@ import java.util.*;
  *
  * Author: Ayham Mahmoud Atallah.
  * Date of Strat: wed/December/3/2025.
- * Last Edited on: Mon/December/8/2025. at 8:45PM UTC+2.
+ * Last Edited on: Sat/December/20/2025. at 8:45PM UTC+2.
  *
  */
 public class BinarySearchTree {
@@ -735,5 +737,34 @@ public class BinarySearchTree {
             return 0;
 
         return path.get(i) + sumPath(path, i + 1);
+    }
+
+    /**
+     * Returns the maximum sum in a subtree, it could be the whole tree.
+     */
+    public int maximumSumInSubtree() {
+        if (isEmpty())
+            return 0;
+
+        maximum = Integer.MIN_VALUE;
+        return maximumSumInSubtreeHelper(getRoot());
+    }
+
+    private int maximum = Integer.MIN_VALUE;
+
+    /**
+     * maximumSumInSubtree Helper method.
+     */
+    private int maximumSumInSubtreeHelper(Node root) {
+        if (root == null)
+            return 0;
+
+        int currentSumOfSubTree = root.getData() + maximumSumInSubtreeHelper(root.getLeft())
+                + maximumSumInSubtreeHelper(root.getRight());
+
+        if (currentSumOfSubTree > this.maximum)
+            this.maximum = currentSumOfSubTree;
+
+        return currentSumOfSubTree;
     }
 }
