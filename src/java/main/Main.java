@@ -1,3 +1,5 @@
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 /**
@@ -6,7 +8,6 @@ import java.util.Stack;
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println((int) Math.log10(5247));
         BinarySearchTree tree = new BinarySearchTree();
         tree.insert(10);
         tree.insert(5);
@@ -14,10 +15,25 @@ public class Main {
         tree.insert(13);
         tree.insert(11);
 
-        tree.preOrderPrint();
-        System.out.println();
+        printLevels(tree.getRoot());
+    }
 
-        tree.printAllPathsAndSum();
+    static void printLevels(Node root) {
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                Node current = queue.poll();
+                if (current.getLeft() != null)
+                    queue.add(current.getLeft());
+                if (current.getRight() != null)
+                    queue.add(current.getRight());
+
+                System.out.print(current.getData() + " ");
+            }
+            System.out.println();
+        }
 
     }
 

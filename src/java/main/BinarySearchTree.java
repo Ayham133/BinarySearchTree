@@ -1,7 +1,5 @@
 import java.util.*;
 
-import com.sun.org.apache.xerces.internal.impl.xpath.regex.REUtil;
-
 /**
  * BinaryTree
  *
